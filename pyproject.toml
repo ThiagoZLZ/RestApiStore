@@ -1,0 +1,19 @@
+[project]
+name = "restapistore"
+version = "0.1.0"
+description = "RestStore API"
+authors = [
+    {name = "Thiago Carvalho",email = "thiago.carvalho1991@hotmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pytest (>=8.4.2,<9.0.0)",
+    "factory-boy (>=3.3.3,<4.0.0)",
+    "django (>=5.2.6,<6.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
