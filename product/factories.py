@@ -17,7 +17,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
     category = factory.LazyAttribute(CategoryFactory)
     title = factory.Faker('pystr')
 
-    @factory.post_generetion
+    @factory.post_generation
     def category(self, create, extracted, **kwargs):
         if not create:
             return 
