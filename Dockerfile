@@ -27,13 +27,17 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Instala o Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN curl -sSL https://install.python-poetry.org | python3 
+
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc \
+    && pip install psycopg2
 
 # Cria diretório de trabalho
 WORKDIR $PYSETUP_PATH
 
 # Copia pyproject.toml e gera o lockfile
-COPY pyproject.toml ./
+COPY poetry.lock pyproject.toml ./
 RUN /opt/poetry/bin/poetry lock
 
 # Instala dependências do projeto sem dev
