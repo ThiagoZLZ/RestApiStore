@@ -1,6 +1,7 @@
 [tool.poetry]
 name = "restapistore"
 version = "0.1.0"
+packages = [{ include = "restapistore" }]
 description = "RestStore API"
 authors = ["Thiago Carvalho <thiago.carvalho1991@hotmail.com>"]
 readme = "README.md"
