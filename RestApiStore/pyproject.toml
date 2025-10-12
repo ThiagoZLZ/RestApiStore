@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "restapistore"
+version = "0.1.0"
+packages = [{ include = "restapistore2" }]
+description = "RestStore API"
+authors = ["Thiago Carvalho <thiago.carvalho1991@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+pytest = ">=8.4.2,<9.0.0"
+factory-boy = ">=3.3.3,<4.0.0"
+django = ">=5.2.6,<6.0.0"
+djangorestframework = ">=3.16.1,<4.0.0"
+django-extensions = ">=4.1,<5.0"
+django-debug-toolbar = ">=6.0.0,<7.0.0"
+psycopg2-binary = "^2.9.10"
+flake8 = "^7.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest-django (>=4.11.1,<5.0.0)"
+]
+
+
