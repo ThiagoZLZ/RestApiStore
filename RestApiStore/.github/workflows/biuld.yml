@@ -68,7 +68,7 @@ jobs:
           pip install poetry==${{ matrix.poetry-version }}
           poetry --version
 
-      # 4. Limpar cache do Poetry (opcional, evita erros de virtualenv)
+      ## 4. Limpar cache do Poetry (opcional, evita erros de virtualenv)
       - name: Clear Poetry cache
         run: rm -rf ~/.cache/pypoetry
 
