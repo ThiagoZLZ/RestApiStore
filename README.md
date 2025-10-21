@@ -1,2 +1,0 @@
-# RestApiStore
-RestAPPStore APP
