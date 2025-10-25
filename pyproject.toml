@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "restapistore"
+name = "RestApiStore"
 version = "0.1.0"
 packages = [{ include = "RestApiStore" }]
 description = "RestStore API"
