@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-x8etxk9p(eg6#c1%+l_b2*ulmr8en-keov_r6!iu%s%sx37#d1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "ebac-restapistore-13f0c4477e7b.herokuapp.com"]
 
 
 # Application definition
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -56,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "RestApiStore.urls"
@@ -155,12 +155,16 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-chave-padrao-para-teste")
+# SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-chave-padrao-para-teste")
 
-DEBUG = int(os.environ.get("DEBUG", default=0))
+# DEBUG = int(os.environ.get("DEBUG", default=0))
 
-# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1 localhost", "ebac-restapistore-13f0c4477e7b.herokuapp.com").split(" ")
+# # ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1 localhost", "ebac-restapistore-13f0c4477e7b.herokuapp.com").split(" ")
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "ebac-restapistore-13f0c4477e7b.herokuapp.com"]
+# ALLOWED_HOSTS = ["localhost", "127.0.0.1", "ebac-restapistore-13f0c4477e7b.herokuapp.com"]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
