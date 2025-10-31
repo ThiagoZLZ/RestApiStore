@@ -1,5 +1,5 @@
 build:
   docker:
-    web: Dcokerfile
+    web: Dockerfile
 run:
-  web: gunicorn bookstore.wgsi:application --bind 0.0.0.0:$PORT
+  web: gunicorn bookstore.wsgi:application --bind 0.0.0.0:$PORT
