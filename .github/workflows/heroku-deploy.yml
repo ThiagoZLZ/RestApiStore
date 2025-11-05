@@ -49,40 +49,81 @@
 #               env:
 #                 HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 #                 HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-#                 ## SQL_HOST: {{ secrets.SQL_HOST }}
-#                 ## SQL_DATABASE: {{ secrets.SQL_DATABASE }}
-#                 ## SQL_USER: ${ secrets.SQL_USER }}
-#                 ## SQL_PASSWORD: {{ secrets.SQL_PASSWORD }}
-#                 ## SQL_ENGINE: {{ secrets.SQL_ENGINE }}
+#                 # SQL_HOST: {{ secrets.SQL_HOST }}
+#                 # SQL_DATABASE: {{ secrets.SQL_DATABASE }}
+#                 # SQL_USER: ${ secrets.SQL_USER }}
+#                 # SQL_PASSWORD: {{ secrets.SQL_PASSWORD }}
+#                 # SQL_ENGINE: {{ secrets.SQL_ENGINE }}
 #             - name: Add Heroku remote
 #               run: heroku git:remote --app $HEROKU_APP_NAME
 #               env:
 #                 HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
 #             - name: Push to Heroku
 #               run: git push heroku main:main 
+#               ####
 
-#               ###
+name: Push Container to Heroku
 
-name: Deploy para o Heroku
 
 on:
   push:
     branches:
-      - main
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
-  deploy:
+  heroku-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out do repositório
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Deploy no Heroku
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "ebac-restapistore"  # nome do app no Heroku
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          usedocker: false
+
+  custom-deploy:
+    needs: heroku-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+          machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+
+      - name: Push to Heroku
+        run: git push heroku main:main
+
 
