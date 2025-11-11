@@ -1,4 +1,4 @@
-name: Python application987
+name: Python application
 
 on: [push]
 
@@ -27,12 +27,13 @@ jobs:
           pip install poetry==${{ matrix.poetry-version }}
           poetry --version
 
+      # Opcional — útil se você quiser garantir que não há cache velho no CI
       - name: Clear Poetry cache COMPLETELY
         run: |
-          poetry cache clear . --all
-          rm -rf ~/.cache/pypoetry
-          rm -rf ~/.local/share/pypoetry
-          rm -rf /home/runner/.cache/pypoetry
+          poetry cache clear . --all || true
+          rm -rf ~/.cache/pypoetry || true
+          rm -rf ~/.local/share/pypoetry || true
+          rm -rf /home/runner/.cache/pypoetry || true
 
       - name: Install dependencies
         run: poetry install --no-root
