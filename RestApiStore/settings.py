@@ -67,7 +67,7 @@ ROOT_URLCONF = "RestApiStore.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "restapistore", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
